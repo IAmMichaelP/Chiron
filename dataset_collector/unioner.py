@@ -1,19 +1,27 @@
 import pandas as pd
-import re
 
-df = pd.read_csv(r"C:\Users\agaro\Documents\GitHub\Chiron\dataset_collector\gma_new.csv")
+# Step 1: Read the CSV file
+input_file = r"C:\Users\agaro\Documents\GitHub\Chiron\dataset_collector\annotated_dataset4.csv"
+df = pd.read_csv(input_file)
 
-print(df.head(100))
-# Define a function to add 'https://' if the link doesn't start with it
-def edit_content(content):
-    content = re.sub(r'\s+', ' ', content).strip()
-    return content
+# Step 2: Verify and select only the required columns
+required_columns = ['link', 'title', 'annotation', 'content']
 
-# Apply the function to the 'links' column
-# df['content'] = df['content'].apply(edit_content)
+# Check if the required columns exist in the DataFrame
+if all(column in df.columns for column in required_columns):
+    df = df[required_columns]  # Select only the required columns
+else:
+    raise ValueError("The input CSV file does not contain the required columns: link, title, annotation, content.")
 
-# Save the updated DataFrame back to a CSV file
+# Step 3: Define the output file path
+output_file = r"./dataset_collector/chiron_authentic.csv"
 
-# df.to_csv('./dataset_collector/chiron_authentic.csv', index=False)
-# df.to_csv('chiron.csv', mode='a', index=False, header=False)
-df.to_csv('./chiron_authentic.csv', mode='a', index=False, header=False)
+# Step 4: Check if the output file already exists
+if not pd.io.common.file_exists(output_file):
+    # If the file does not exist, write the DataFrame with headers
+    df.to_csv(output_file, index=False)
+else:
+    # If the file exists, append the DataFrame without headers
+    df.to_csv(output_file, mode='a', index=False, header=False)
+
+print("Data processing complete. Check 'chiron_authentic.csv' for the results.")
