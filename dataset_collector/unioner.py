@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Step 1: Read the CSV file
-input_file = r"C:\Users\agaro\Documents\GitHub\Chiron\dataset_collector\annotated_dataset4.csv"
+input_file = r"C:\Users\agaro\Documents\GitHub\Chiron\chiron.csv"
 df = pd.read_csv(input_file)
 
 # Step 2: Verify and select only the required columns
@@ -14,7 +14,7 @@ else:
     raise ValueError("The input CSV file does not contain the required columns: link, title, annotation, content.")
 
 # Step 3: Define the output file path
-output_file = r"./dataset_collector/chiron_authentic.csv"
+output_file = r"./dataset_collector/chiron_content.csv"
 
 # Step 4: Check if the output file already exists
 if not pd.io.common.file_exists(output_file):

@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "csv-write-stream": "^2.0.0",
     "csv-writer": "^1.6.0",
     "pandas": "^0.0.3",
+    "papaparse": "^5.5.2",
     "puppeteer": "^24.2.0"
   }
 }
